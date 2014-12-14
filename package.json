@@ -14,8 +14,14 @@
     "url": "https://github.com/Pencroff/kea-config.git"
   },
   "keywords": [
+    "conf",
+    "config",
     "configuration",
-    "config manager"
+    "settings",
+    "store",
+    "config manager",
+    "config file",
+    "load config"
   ],
   "author": "Pencroff",
   "license": "MIT",

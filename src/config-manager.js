@@ -3,6 +3,10 @@
  */
 
 
+/**
+  * @module kea-config
+ */
+
 var confKeyStrMsg = 'Configuration key not string.',
     path = require('path'),
     conf = {},
