@@ -1,0 +1,36 @@
+{
+  "name": "kea-config",
+  "version": "0.0.1",
+  "description": "Config manager for Node.js applications",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --bail --ui bdd --reporter spec -- test/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pencroff/kea-config.git"
+  },
+  "keywords": [
+    "configuration",
+    "manager"
+  ],
+  "author": "Pencroff",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pencroff/kea-config/issues"
+  },
+  "homepage": "https://github.com/Pencroff/kea-config",
+  "devDependencies": {
+    "chai": "~1.10.0",
+    "gulp": "~3.8.10",
+    "gulp-bench": "^1.1.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-istanbul": "^0.5.0",
+    "gulp-mocha": "~2.0.0",
+    "gulp-util": "~3.0.1",
+    "mocha": "~2.0.1"
+  }
+}
