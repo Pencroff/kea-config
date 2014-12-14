@@ -1,4 +1,7 @@
-# ![Kea-logo](/img/kea-logo.png) kea-config
+![Kea-logo](./img/kea-logo.png) 
+
+kea-config
+==========
 
 Config manager for Node.js applications.
 Support merging multiple configurations for different Node.js environment.
