@@ -4,9 +4,36 @@ kea-config
 Config manager for Node.js applications.
 Support merge multiple configurations for different Node.js environment.
 
-##API
+## Usage
 
-* * *
+Install with npm:
+
+    npm install kea-config --save
+
+In your code require the package:
+
+    var configManager = require('kea-config');
+
+Setup configuration data
+
+    configManager.setup('./config');
+
+This command will initialize `configManager` by `main.conf.js` in and then merge `development.conf.js` (if `NODE_ENV === development`)
+
+Read (`get`) and write (`set`) config data:
+
+    var sessionSecret = configManager.get('web.sessionKey');
+    configManager.get('web.port', 3000);
+    // also
+    webConfig = configManager.get('web');
+    /*
+        {
+            sessionKey: '123-secret',
+            port: 3000
+        }
+    */
+
+##API
 
 ### kea-config.setup(dirPath)
 
@@ -71,12 +98,13 @@ Check availability of key in configuration
 
 **Returns**: `boolean`
 
+## Testing, coverage and benchmark
 
-
-* * *
+ * `npm test` or `gulp mocha` - run tests
+ * `gulp cover` - check tests coverage
+ * `gulp benchmark` - rum performance test
 
 ## Code coverage
-
 
 * Statements   : 100% ( 62/62 )
 * Branches     : 96.15% ( 25/26 )
@@ -89,6 +117,11 @@ Check availability of key in configuration
 * Get deep key x 5,277,113 ops/sec +0.24%
 * Set simple key x 3,927,440 ops/sec +0.64%
 * Set deep key x 2,254,652 ops/sec +0.28%
+
+## Road map
+
+* support yaml, json
+* delete key
 
 ## Licens
 
