@@ -2,7 +2,7 @@ kea-config
 ==========
 
 Config manager for Node.js applications.
-Support merge multiple configurations for different Node.js environment.
+Support merging multiple configurations for different Node.js environment.
 
 ## Usage
 
