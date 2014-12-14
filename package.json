@@ -15,7 +15,7 @@
   },
   "keywords": [
     "configuration",
-    "manager"
+    "config manager"
   ],
   "author": "Pencroff",
   "license": "MIT",
@@ -32,5 +32,8 @@
     "gulp-mocha": "~2.0.0",
     "gulp-util": "~3.0.1",
     "mocha": "~2.0.1"
+  },
+  "engines": {
+    "node": "~0.10.0"
   }
 }
