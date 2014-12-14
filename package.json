@@ -1,6 +1,6 @@
 {
   "name": "kea-config",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Config manager for Node.js applications",
   "main": "index.js",
   "directories": {
