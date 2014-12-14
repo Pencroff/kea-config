@@ -85,8 +85,8 @@ var confKeyStrMsg = 'Configuration key not string.',
     };
 module.exports = {
     /**
-     * Full init config based on environment
-     * @param {string} dirPath - path to folder with config
+     * Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
+     * @param {string} dirPath - path to folder with configuration files
      */
     setup: function (dirPath) {
         'use strict';
@@ -99,7 +99,7 @@ module.exports = {
         return me;
     },
     /**
-     * ConfigManager initialization. Delete previous config.
+     * ConfigManager initialization by data in file. Not save previous configuration.
      * @param {string} path - path to CommonJs module with configuration
      */
     init: function (path) {
@@ -109,7 +109,7 @@ module.exports = {
         return this;
     },
     /**
-     * Update exist configuration. Merge new config to exist. Throw exception if key for update not exist or have different type in original and configuration for update.
+     * Update exist configuration. Merge new config to exist.
      * @param {string} path - path to CommonJs module with configuration
      */
     update: function (path) {
@@ -120,7 +120,7 @@ module.exports = {
     },
     /**
      * Get 'value' of 'key'.
-     * @param {string} key - key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See ConfigManagerTest.js
+     * @param {string} key - key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js
      * @returns {*} value - 'value' of 'key'. Can be primitive or js object. Objects not connected to original configuration.
      */
     get: function (key) {
@@ -139,7 +139,7 @@ module.exports = {
     },
     /**
      * Set 'value' for 'key'
-     * @param {string} key - key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See ConfigManagerTest.js
+     * @param {string} key - key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js
      * @param {*} value
      */
     set: function (key, value) {

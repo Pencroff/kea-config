@@ -23,7 +23,7 @@ This command will initialize `configManager` by `main.conf.js` in and then merge
 Read (`get`) and write (`set`) config data:
 
     var sessionSecret = configManager.get('web.sessionKey');
-    configManager.get('web.port', 3000);
+    configManager.set('web.port', 3000);
     // also
     webConfig = configManager.get('web');
     /*
@@ -37,17 +37,17 @@ Read (`get`) and write (`set`) config data:
 
 ### kea-config.setup(dirPath)
 
-Full init config based on environment
+Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
 
 **Parameters**
 
-**dirPath**: `string`, path to folder with config
+**dirPath**: `string`, path to folder with configuration files
 
 
 
 ### kea-config.init(path)
 
-ConfigManager initialization. Delete previous config.
+ConfigManager initialization by data in file. Not save previous configuration.
 
 **Parameters**
 
@@ -57,7 +57,7 @@ ConfigManager initialization. Delete previous config.
 
 ### kea-config.update(path)
 
-Update exist configuration. Merge new config to exist. Throw exception if key for update not exist or have different type in original and configuration for update.
+Update exist configuration. Merge new config to exist.
 
 **Parameters**
 
@@ -71,7 +71,7 @@ Get 'value' of 'key'.
 
 **Parameters**
 
-**key**: `string`, key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See ConfigManagerTest.js
+**key**: `string`, key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js
 
 **Returns**: `*`, value - 'value' of 'key'. Can be primitive or js object. Objects not connected to original configuration.
 
@@ -82,7 +82,7 @@ Set 'value' for 'key'
 
 **Parameters**
 
-**key**: `string`, key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See ConfigManagerTest.js
+**key**: `string`, key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js
 
 **value**: `*`, Set 'value' for 'key'
 
