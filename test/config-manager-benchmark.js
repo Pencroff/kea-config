@@ -13,19 +13,19 @@ configManager.init(mainConf);
 module.exports = {
     name: 'kea-config benchmark',
     tests: {
-        'Get with simple key': function () {
+        'Get simple key': function () {
             'use strict';
             var i = configManager.get('web.sessionKey');
         },
-        'Get with deep key': function () {
+        'Get deep key': function () {
             'use strict';
             var i = configManager.get('web.level1.level2.level3.level4.level5');
         },
-        'Set with simple key': function () {
+        'Set simple key': function () {
             'use strict';
             configManager.set('web.sessionKey', 'session');
         },
-        'Set with deep key': function () {
+        'Set deep key': function () {
             'use strict';
             configManager.set('web.level1.level2.level3.level4.level5', 'New Deep Value');
         }

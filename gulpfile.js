@@ -9,7 +9,7 @@ var istanbul = require('gulp-istanbul');
 var clean = require('gulp-clean');
 var benchmark = require('gulp-bench');
 
-gulp.task('default', function() {
+gulp.task('default', ['watch-mocha'], function() {
     // place code for your default task here
     console.log('gulp');
 });
