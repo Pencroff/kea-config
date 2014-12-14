@@ -125,7 +125,7 @@ Check availability of key in configuration
 * support yaml, json
 * delete key
 
-## Licens
+## License
 
 MIT
 
