@@ -8,6 +8,21 @@ Main feature of this configuration manager is merging configuration files depend
 
 ####Quick example
 
+#####Initialization and usage
+
+```js
+configManager.setup('./config');
+// For process.env.NODE_ENV === 'development';
+configManager.get('web.port'); // 4343
+// For process.env.NODE_ENV === 'production';
+configManager.get('web.port'); // 7474
+
+// If you don't want to apply changes connected to environment
+// just use init method
+configManager.init('./config/main.conf.js');
+configManager.get('web.port'); // 3005
+```
+
 #####File ./config/main.conf.js
 
 ```js
@@ -47,20 +62,6 @@ config.web = {
 
 module.exports = config;
 ``` 
-#####Initialization and usage
-
-```js
-configManager.setup('./config');
-// For process.env.NODE_ENV === 'development';
-configManager.get('web.port'); // 4343
-// For process.env.NODE_ENV === 'production';
-configManager.get('web.port'); // 7474
-
-// If you don't want to apply changes connected to environment
-// just use init method
-configManager.init('./config/main.conf.js');
-configManager.get('web.port'); // 3005
-```
 
 ## Usage
 
