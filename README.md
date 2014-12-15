@@ -6,11 +6,11 @@ kea-config
 Config manager for Node.js applications.
 Main feature of this configuration manager is merging configuration files depending on Node.js environment.
 
-####Simple example
+####Quick example
+
+#####File ./config/main.conf.js
 
 ```js
-// File ./config/main.conf.js
-
 var config = {}
 
 config.web = {
@@ -25,41 +25,42 @@ config.web = {
 module.exports = config;
 ```
 
-```js
-// File ./config/development.conf.js
+#####File ./config/development.conf.js
 
+```js
 var config = {}
 
 config.web = {
-    port: 4343,
-    paging: {
-        numberVisiblePages: 7
-    }
+    port: 4343
 };
 
 module.exports = config;
 ``` 
+#####File ./config/production.conf.js
 
 ```js
-// File ./config/production.conf.js
-
 var config = {}
 
 config.web = {
-    port: 7474,
-    paging: {
-        numberVisiblePages: 9
-    }
+    port: 7474
 };
 
 module.exports = config;
 ``` 
+#####Initialization and usage
 
 ```js
+configManager.setup('./config');
+// For process.env.NODE_ENV === 'development';
+configManager.get('web.port'); // 4343
+// For process.env.NODE_ENV === 'production';
+configManager.get('web.port'); // 7474
 
-
+// If you don't want to apply changes connected to environment
+// just use init method
+configManager.init('./config/main.conf.js');
+configManager.get('web.port'); // 3005
 ```
-
 
 ## Usage
 
