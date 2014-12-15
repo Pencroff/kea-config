@@ -4,7 +4,62 @@ kea-config
 ==========
 
 Config manager for Node.js applications.
-Support merging multiple configurations for different Node.js environment.
+Main feature of this configuration manager is merging configuration files depending on Node.js environment.
+
+####Simple example
+
+```js
+// File ./config/main.conf.js
+
+var config = {}
+
+config.web = {
+    port: 3005,
+    sessionKey: '6ketaq3cgo315rk9',
+    paging: {
+        defaultPageSize: 25,
+        numberVisiblePages: 10
+    }
+};
+
+module.exports = config;
+```
+
+```js
+// File ./config/development.conf.js
+
+var config = {}
+
+config.web = {
+    port: 4343,
+    paging: {
+        numberVisiblePages: 7
+    }
+};
+
+module.exports = config;
+``` 
+
+```js
+// File ./config/production.conf.js
+
+var config = {}
+
+config.web = {
+    port: 7474,
+    paging: {
+        numberVisiblePages: 9
+    }
+};
+
+module.exports = config;
+``` 
+
+```js
+
+
+```
+
 
 ## Usage
 
