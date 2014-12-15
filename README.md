@@ -181,6 +181,7 @@ Check availability of key in configuration
 
 * support yaml, json
 * delete key
+* links to other properties
 
 ## License
 
