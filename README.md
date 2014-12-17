@@ -181,7 +181,15 @@ Check availability of key in configuration
 
 * support yaml, json
 * delete key
-* links to other properties
+* references to other properties - [Link](http://stackoverflow.com/a/7937281/1053480)
+```js
+{
+	"name":"Kris",
+	"father": {"name":"Bill","wife":{"$ref":"$mother"}},
+	"mother": {"name":"Karen"}
+}
+```
+
 
 ## License
 
