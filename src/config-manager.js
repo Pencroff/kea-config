@@ -83,6 +83,21 @@ var confKeyStrMsg = 'Configuration key not string.',
             i += 1;
         }
     },
+    strTemplate = function (text, replacements) {
+        'use strict';
+        var keys = Object.keys(replacements),
+            len = keys.length,
+            i = 0,
+            prop,
+            value;
+        while (i < len) {
+            prop = keys[i];
+            value = replacements[prop];
+            text = text.split('{' + prop + '}').join(value);
+            i += 1;
+        }
+        return text;
+    },
     isExtensionObj = function (value) {
         var result = false;
         if(isStr(value.$ref)) {
@@ -91,7 +106,11 @@ var confKeyStrMsg = 'Configuration key not string.',
         return result;
     },
     applyExtension = function (value) {
-        return this.get(value.$ref);
+        var result = this.get(value.$ref);
+        if (isObj(result) && isStr(value.$tmpl)) {
+            result = strTemplate(value.$tmpl, result);
+        }
+        return result;
     };
 module.exports = {
     /**

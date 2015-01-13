@@ -180,7 +180,7 @@ describe('Config Manager', function () {
         expect(configManager.get('web.paging')).to.equal(true);
         done();
     });
-    it('should support get reference to objects', function (done) {
+    it('should support using reference { $ref: \'key.to.some.value\' } to objects in get method', function (done) {
         var testConfFolder = path.join(root, 'testConfigFiles'),
             mainConf = path.join(testConfFolder, 'main.conf.js'),
             refObj;
@@ -188,6 +188,14 @@ describe('Config Manager', function () {
         refObj = configManager.get('web.paging');
         expect(configManager.get('web.refToProperty')).to.equal(25);
         expect(configManager.get('web.refToObj')).to.eql(refObj);
+        done();
+    });
+    it('should support $tmpl key in reference object', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js');
+        configManager.init(mainConf);
+        expect(configManager.get('web.refToSimpleData')).to.equal(10);
+        expect(configManager.get('web.refToMongo')).to.equal('mongodb://dbUser:strongPassword@localhost:27101/database');
         done();
     });
 });

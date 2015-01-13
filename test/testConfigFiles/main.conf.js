@@ -19,6 +19,21 @@ config.web = {
             }
         }
     },
+    mongoDb: {
+        username: 'dbUser',
+        password: 'strongPassword',
+        host: 'localhost',
+        port: 27101,
+        db: 'database'
+    },
+    refToMongo: {
+        $ref: 'web.mongoDb',
+        $tmpl: 'mongodb://{username}:{password}@{host}:{port}/{db}'
+    },
+    refToSimpleData: {
+        $ref: 'web.paging.numberVisiblePages',
+        $tmpl: 'mongodb://{username}:{password}@{host}:{port}/{db}'
+    },
     refToProperty: { $ref: 'web.paging.defaultPageSize' },
     refToObj: { $ref: 'web.paging' }
 };

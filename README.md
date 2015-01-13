@@ -3,64 +3,83 @@
 kea-config
 ==========
 
-Config manager for Node.js applications.
-Main feature of this configuration manager is merging configuration files depending on Node.js environment.
+Configuration manager for Node.js applications with perfect performance and without dependencies.
+Main feature of this configuration manager is merging configuration files depending on Node.js environment,
+support references to other keys and using templates with objects for complex string values.
 
 ####Quick example
 
 #####Initialization and usage
 
 ```js
-configManager.setup('./config');
-// For process.env.NODE_ENV === 'development';
-configManager.get('web.port'); // 4343
-// For process.env.NODE_ENV === 'production';
-configManager.get('web.port'); // 7474
 
-// If you don't want to apply changes connected to environment
-// just use init method
-configManager.init('./config/main.conf.js');
-configManager.get('web.port'); // 3005
+    configManager.setup('./config');
+    // For process.env.NODE_ENV === 'development';
+    configManager.get('web.port'); // 4343
+    // For process.env.NODE_ENV === 'production';
+    configManager.get('web.port'); // 7474
+
+    // If you don't want to apply changes connected to environment
+    // just use init method
+    configManager.init('./config/main.conf.js');
+    configManager.get('web.port'); // 3005
 ```
 
 #####File ./config/main.conf.js
 
 ```js
-var config = {}
 
-config.web = {
-    port: 3005,
-    sessionKey: '6ketaq3cgo315rk9',
-    paging: {
-        defaultPageSize: 25,
-        numberVisiblePages: 10
-    }
-};
+    var config = {}
 
-module.exports = config;
+    config.web = {
+        port: 3005,
+        sessionKey: '6ketaq3cgo315rk9',
+        paging: {
+            defaultPageSize: 25,
+            numberVisiblePages: 10
+        },
+        mongoDb: {
+            username: 'dbUser',
+            password: 'strongPassword',
+            host: 'localhost',
+            port: 27101,
+            db: 'database'
+        },
+        propertyReference: {
+            $ref: 'web.paging.defaultPageSize'
+        },
+        templateReference: {
+            $ref: 'web.mongoDb',
+            $tmpl: 'mongodb://{username}:{password}@{host}:{port}/{db}'
+        }
+    };
+
+    module.exports = config;
 ```
 
 #####File ./config/development.conf.js
 
 ```js
-var config = {}
 
-config.web = {
-    port: 4343
-};
+    var config = {}
 
-module.exports = config;
+    config.web = {
+        port: 4343
+    };
+
+    module.exports = config;
 ``` 
 #####File ./config/production.conf.js
 
 ```js
-var config = {}
 
-config.web = {
-    port: 7474
-};
+    var config = {}
 
-module.exports = config;
+    config.web = {
+        port: 7474
+    };
+
+    module.exports = config;
 ``` 
 
 ## Usage
@@ -81,6 +100,8 @@ This command will initialize `configManager` by `main.conf.js` in and then merge
 
 Read (`get`) and write (`set`) config data:
 
+```js
+
     var sessionSecret = configManager.get('web.sessionKey');
     configManager.set('web.port', 3000);
     // also
@@ -91,6 +112,15 @@ Read (`get`) and write (`set`) config data:
             port: 3000
         }
     */
+
+    // Usage references
+
+    configManager.get('web.propertyReference'); // 25
+
+    // Usage templates
+
+    configManager.get('web.templateReference'); // 'mongodb://dbUser:strongPassword@localhost:27101/database' - string
+```
 
 ##API
 
@@ -133,6 +163,9 @@ Get 'value' of 'key'.
 **key**: `string`, key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js
 
 **Returns**: `*`, value - 'value' of 'key'. Can be primitive or js object. Objects not connected to original configuration.
+if value contain reference (`{$ref: 'some.reference.to.other.key'}`), then return reference value, if value contain
+reference with template(`{ $ref: 'some.reference', $tmpl: '{some}:{template}.{string}' }`) and reference point to object
+then return string with populated placeholder in template (look example on top of page).
 
 
 ### kea-config.set(key, value)
@@ -165,31 +198,24 @@ Check availability of key in configuration
 
 ## Code coverage
 
-* Statements   : 100% ( 62/62 )
-* Branches     : 96.15% ( 25/26 )
-* Functions    : 100% ( 13/13 )
-* Lines        : 100% ( 62/62 )
+* Statements   : 100% ( 79/79 )
+* Branches     : 97.06% ( 33/34 )
+* Functions    : 100% ( 16/16 )
+* Lines        : 100% ( 79/79 )
 
 ## Performance test
 
-* Get simple key x 6,280,396 ops/sec +0.38%
-* Get deep key x 5,277,113 ops/sec +0.24%
-* Set simple key x 3,927,440 ops/sec +0.64%
-* Set deep key x 2,254,652 ops/sec +0.28%
+* Get simple key ...................... x 6,209,118 ops/sec +0.22%
+* Get deep key ........................ x 5,184,231 ops/sec +0.20%
+* Get key with reference .............. x 1,444,284 ops/sec +0.06%
+* Get key with reference and template . x 123,193 ops/sec +0.82%
+* Set simple key ...................... x 4,641,383 ops/sec +0.62%
+* Set deep key ........................ x 2,377,595 ops/sec +0.24%
 
 ## Road map
 
-* support yaml, json
+* support yaml, json, json5
 * delete key
-* references to other properties - [Link](http://stackoverflow.com/a/7937281/1053480)
-```js
-{
-	"name":"Kris",
-	"father": {"name":"Bill","wife":{"$ref":"$mother"}},
-	"mother": {"name":"Karen"}
-}
-```
-
 
 ## License
 

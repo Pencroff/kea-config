@@ -21,6 +21,14 @@ module.exports = {
             'use strict';
             var i = configManager.get('web.level1.level2.level3.level4.level5');
         },
+        'Get key with reference': function () {
+            'use strict';
+            var i = configManager.get('web.refToProperty');
+        },
+        'Get key with reference and template': function () {
+            'use strict';
+            var i = configManager.get('web.refToMongo');
+        },
         'Set simple key': function () {
             'use strict';
             configManager.set('web.sessionKey', 'session');
