@@ -180,4 +180,14 @@ describe('Config Manager', function () {
         expect(configManager.get('web.paging')).to.equal(true);
         done();
     });
+    it('should support get reference to objects', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js'),
+            refObj;
+        configManager.init(mainConf);
+        refObj = configManager.get('web.paging');
+        expect(configManager.get('web.refToProperty')).to.equal(25);
+        expect(configManager.get('web.refToObj')).to.eql(refObj);
+        done();
+    });
 });

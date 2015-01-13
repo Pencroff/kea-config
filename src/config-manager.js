@@ -82,6 +82,16 @@ var confKeyStrMsg = 'Configuration key not string.',
             }
             i += 1;
         }
+    },
+    isExtensionObj = function (value) {
+        var result = false;
+        if(isStr(value.$ref)) {
+            result = true;
+        }
+        return result;
+    },
+    applyExtension = function (value) {
+        return this.get(value.$ref);
     };
 module.exports = {
     /**
@@ -133,7 +143,11 @@ module.exports = {
             value = getNestedValue(conf, key);
         }
         if (isObj(value)) {
-            value = JSON.parse(JSON.stringify(value));
+            if (isExtensionObj(value)) {
+                value = applyExtension.call(this, value);
+            } else {
+                value = JSON.parse(JSON.stringify(value));
+            }
         }
         return value;
     },

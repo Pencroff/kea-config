@@ -11,7 +11,7 @@ var benchmark = require('gulp-bench');
 
 gulp.task('default', ['watch-mocha'], function() {
     // place code for your default task here
-    console.log('gulp');
+    console.log('gulp started');
 });
 
 gulp.task('clear-coverage', function() {

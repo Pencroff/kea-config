@@ -18,7 +18,9 @@ config.web = {
                 }
             }
         }
-    }
+    },
+    refToProperty: { $ref: 'web.paging.defaultPageSize' },
+    refToObj: { $ref: 'web.paging' }
 };
 
 module.exports = config;
