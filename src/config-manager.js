@@ -11,6 +11,7 @@ var confKeyStrMsg = 'Configuration key not string.',
     path = require('path'),
     conf = {},
     getFnCache = {},
+    templatesCache = {},
     is = function (obj, type) {
         return typeof obj === type;
     },
@@ -83,17 +84,34 @@ var confKeyStrMsg = 'Configuration key not string.',
             i += 1;
         }
     },
+    getKeysFromTemplate = function (tmpl) {
+        var result = [],
+            rexExp =  /\{(.*?)\}/g,
+            matches = templatesCache[tmpl];
+        if (!matches) {
+            matches = rexExp.exec(tmpl);
+            templatesCache[tmpl] = matches;
+            console.log(tmpl);
+            console.dir(matches);
+        }
+
+        return result;
+    },
     strTemplate = function (text, replacements) {
         'use strict';
-        var keys = Object.keys(replacements),
+        var keys = getKeysFromTemplate(text),//Object.keys(replacements),
             len = keys.length,
             i = 0,
-            prop,
+            key,
             value;
         while (i < len) {
-            prop = keys[i];
-            value = replacements[prop];
-            text = text.split('{' + prop + '}').join(value);
+            key = keys[i];
+            if (key.indexOf('.') !== -1) {
+                value = getNestedValue(replacements, key);
+            } else {
+                value = replacements[key];
+            }
+            text = text.split('{' + key + '}').join(value);
             i += 1;
         }
         return text;

@@ -111,7 +111,7 @@ describe('Config Manager', function () {
             mainConf = path.join(testConfFolder, 'main.conf.js');
         configManager.init(mainConf);
         expect(configManager.has('web.port')).to.equal(true);
-        expect(configManager.has('web.dbConnection')).to.equal(false);
+        expect(configManager.has('web.dbConnectionPort')).to.equal(false);
         done();
     });
     it('should setup configuration', function (done) {
@@ -198,4 +198,19 @@ describe('Config Manager', function () {
         expect(configManager.get('web.refToMongo')).to.equal('mongodb://dbUser:strongPassword@localhost:27101/database');
         done();
     });
+    it('should support complex key in $tmpl', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js');
+        configManager.init(mainConf);
+        expect(configManager.get('web.refToComplexObject')).to.equal('mongodb://dbUser:strongPassword@localhost:27101/database');
+        done();
+    });
+    //it('should support recursion for references', function (done) {
+    //
+    //    done();
+    //});
+    //it('should suppurt changes files on the fly and update config after', function (done) {
+    //
+    //    done();
+    //});
 });

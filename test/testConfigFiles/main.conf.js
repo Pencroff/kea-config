@@ -26,6 +26,15 @@ config.web = {
         port: 27101,
         db: 'database'
     },
+    mongoDbComplex: {
+        user: {
+            login: 'dbUser',
+            password: 'strongPassword'
+        },
+        host: 'localhost',
+        port: 27101,
+        db: 'database'
+    },
     refToMongo: {
         $ref: 'web.mongoDb',
         $tmpl: 'mongodb://{username}:{password}@{host}:{port}/{db}'
@@ -34,8 +43,25 @@ config.web = {
         $ref: 'web.paging.numberVisiblePages',
         $tmpl: 'mongodb://{username}:{password}@{host}:{port}/{db}'
     },
+    refToComplexObject: {
+        $ref: 'web.mongoDbComplex',
+        $tmpl: 'mongodb://{user.user}:{user.password}@{host}:{port}/{db}'
+    },
     refToProperty: { $ref: 'web.paging.defaultPageSize' },
-    refToObj: { $ref: 'web.paging' }
+    refToObj: { $ref: 'web.paging' },
+    nameValue: 'loginName',
+    dbParams: {
+        username: { $ref: 'web.nameValue' },
+        password: '12345'
+    },
+    dbConnection: {
+        user: { $ref: 'web.dbParams' },
+        key: { $reg: 'web.sessionKey' }
+    },
+    dbConectionStr: {
+        $ref: 'web.dbConnection',
+        $tmpl: 'db:{user.username}::{user.password}@{key}'
+    }
 };
 
 module.exports = config;
