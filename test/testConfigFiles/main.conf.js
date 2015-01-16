@@ -45,6 +45,10 @@ config.web = {
     },
     refToComplexObject: {
         $ref: 'web.mongoDbComplex',
+        $tmpl: 'mongodb://{user.login}:{user.password}@{host}:{port}/{db}'
+    },
+    wrongRefToComplexObject: {
+        $ref: 'web.mongoDbComplex',
         $tmpl: 'mongodb://{user.user}:{user.password}@{host}:{port}/{db}'
     },
     refToProperty: { $ref: 'web.paging.defaultPageSize' },

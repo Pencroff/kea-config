@@ -214,8 +214,17 @@ Check availability of key in configuration
 
 ## Road map
 
-* support yaml, json, json5
+* support .yml, .yaml, .coffee, .cson, .properties, .json, .json5, .hjson
+* adapters for different storages like (filesystem, DB, localstorage / sessionstorage, web api and etc.)
+* save current state of config
 * delete key
+
+## Inspired by
+
+* ASP.NET web.config approach
+* [lorenwest/node-config](https://github.com/lorenwest/node-config) 
+* [flatiron/nconf](https://github.com/flatiron/nconf)
+* [dominictarr/config-chain](https://github.com/dominictarr/config-chain)
 
 ## License
 

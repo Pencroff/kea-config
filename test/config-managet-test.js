@@ -60,7 +60,7 @@ describe('Config Manager', function () {
         expect(configManager.get('web').port).to.equals(4455);
         expect(configManager.get('web.port')).to.equals(4455);
         expect(configManager.get('web.sessionKey')).to.equals('6ketaq3cgo315rk9');
-        expect(configManager.get('web.paging')).to.not.undefined;
+        expect(configManager.get('web.paging')).to.not.undefined();
         expect(configManager.get('web.paging.defaultPageSize')).to.equals(25);
         expect(configManager.get('web.paging.numberVisiblePages')).to.equals(10);
         configManager.set('web.section.keyA', 'AAA');
@@ -205,10 +205,33 @@ describe('Config Manager', function () {
         expect(configManager.get('web.refToComplexObject')).to.equal('mongodb://dbUser:strongPassword@localhost:27101/database');
         done();
     });
-    //it('should support recursion for references', function (done) {
-    //
-    //    done();
-    //});
+    it('shold leave wrong key in template', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js');
+        configManager.init(mainConf);
+        expect(configManager.get('web.wrongRefToComplexObject')).to.equal('mongodb://{user.user}:strongPassword@localhost:27101/database');
+        done();
+    });
+    it('should support recursion for references', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js');
+        configManager.init(mainConf);
+        expect(configManager.get('web.dbConnection')).to.equal({
+            user: {
+                username: 'loginName',
+                password: '12345'
+            },
+            key: '6ketaq3cgo315rk9'
+        });
+        done();
+    });
+    it('should support recursion for references with template', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js');
+        configManager.init(mainConf);
+        expect(configManager.get('web.dbConectionStr')).to.equal('db:loginName::12345@6ketaq3cgo315rk9');
+        done();
+    });
     //it('should suppurt changes files on the fly and update config after', function (done) {
     //
     //    done();

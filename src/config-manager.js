@@ -85,17 +85,20 @@ var confKeyStrMsg = 'Configuration key not string.',
         }
     },
     getKeysFromTemplate = function (tmpl) {
-        var result = [],
-            rexExp =  /\{(.*?)\}/g,
-            matches = templatesCache[tmpl];
+        var rexExp =  /\{(.*?)\}/g,
+            matches = templatesCache[tmpl],
+            len,
+            i;
         if (!matches) {
-            matches = rexExp.exec(tmpl);
+            matches = tmpl.match(rexExp);
+            len = matches.length;
+            for (i = 0; i < len; i += 1) {
+                matches[i] = matches[i].substr(1, matches[i].length - 2);
+            }
             templatesCache[tmpl] = matches;
-            console.log(tmpl);
-            console.dir(matches);
         }
 
-        return result;
+        return matches;
     },
     strTemplate = function (text, replacements) {
         'use strict';
@@ -111,7 +114,9 @@ var confKeyStrMsg = 'Configuration key not string.',
             } else {
                 value = replacements[key];
             }
-            text = text.split('{' + key + '}').join(value);
+            if (value) {
+                text = text.split('{' + key + '}').join(value);
+            }
             i += 1;
         }
         return text;
@@ -129,6 +134,27 @@ var confKeyStrMsg = 'Configuration key not string.',
             result = strTemplate(value.$tmpl, result);
         }
         return result;
+    },
+    openReferences = function (obj) {
+        var keys = Object.keys(obj),
+            len = keys.length,
+            i = 0,
+            prop,
+            value;
+        while (i < len) {
+            prop = keys[i];
+            value = obj[prop];
+            if (isObj(value)) {
+                if (isExtensionObj(value)) {
+                    value = applyExtension.call(this, value);
+                } else {
+                    obj[prop] = openReferences.call(this, value);
+                }
+            }
+            i += 1;
+        }
+
+
     };
 module.exports = {
     /**
@@ -180,9 +206,12 @@ module.exports = {
             value = getNestedValue(conf, key);
         }
         if (isObj(value)) {
+            //value = openReferences.call(this, value);
+            //value = JSON.parse(JSON.stringify(value));
             if (isExtensionObj(value)) {
                 value = applyExtension.call(this, value);
             } else {
+              //  value = openReferences.call(this, value);
                 value = JSON.parse(JSON.stringify(value));
             }
         }
