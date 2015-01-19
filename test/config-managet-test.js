@@ -216,7 +216,7 @@ describe('Config Manager', function () {
         var testConfFolder = path.join(root, 'testConfigFiles'),
             mainConf = path.join(testConfFolder, 'main.conf.js');
         configManager.init(mainConf);
-        expect(configManager.get('web.dbConnection')).to.equal({
+        expect(configManager.get('web.dbConnection')).to.eql({
             user: {
                 username: 'loginName',
                 password: '12345'

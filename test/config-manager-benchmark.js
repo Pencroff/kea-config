@@ -29,6 +29,14 @@ module.exports = {
             'use strict';
             var i = configManager.get('web.refToMongo');
         },
+        'Get key with deep references': function () {
+            'use strict';
+            var i = configManager.get('web.dbConnection');
+        },
+        'Get template with deep references': function () {
+            'use strict';
+            var i = configManager.get('web.dbConectionStr');
+        },
         'Set simple key': function () {
             'use strict';
             configManager.set('web.sessionKey', 'session');

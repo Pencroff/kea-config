@@ -60,7 +60,7 @@ config.web = {
     },
     dbConnection: {
         user: { $ref: 'web.dbParams' },
-        key: { $reg: 'web.sessionKey' }
+        key: { $ref: 'web.sessionKey' }
     },
     dbConectionStr: {
         $ref: 'web.dbConnection',

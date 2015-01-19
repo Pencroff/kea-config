@@ -4,7 +4,8 @@
 
 
 /**
-  * @module kea-config
+ * Configuration manager for Node.js applications.
+ * @module kea-config
  */
 
 var confKeyStrMsg = 'Configuration key not string.',
@@ -148,13 +149,13 @@ var confKeyStrMsg = 'Configuration key not string.',
                 if (isExtensionObj(value)) {
                     value = applyExtension.call(this, value);
                 } else {
-                    obj[prop] = openReferences.call(this, value);
+                    value = openReferences.call(this, value);
                 }
+                obj[prop] = value;
             }
             i += 1;
         }
-
-
+        return obj;
     };
 module.exports = {
     /**
@@ -194,7 +195,36 @@ module.exports = {
     /**
      * Get 'value' of 'key'.
      * @param {string} key - key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js
-     * @returns {*} value - 'value' of 'key'. Can be primitive or js object. Objects not connected to original configuration.
+     * @returns {*} value - `value` of `key`. Can be `primitive` or `javascript object`. Objects not connected to original configuration.
+     * If value contain reference (`{$ref: 'some.reference.to.other.key'}`), then return reference value,
+     * if value contain reference with template(`{ $ref: 'some.reference', $tmpl: '{some}:{template}.{string}' }`)
+     * and reference point to object then return string with populated placeholder in template (look example on top of page).
+     * @example <caption>Using deep references</caption>
+     * // Configuration example
+     * {
+     *      nameValue: 'loginName',
+     *      dbParams: {
+     *          username: { $ref: 'web.nameValue' },
+     *          password: '12345'
+     *      },
+     *      dbConnection: {
+     *          user: { $ref: 'web.dbParams' },
+     *          key: { $ref: 'web.sessionKey' }
+     *      },
+     *      dbConectionStr: {
+     *          $ref: 'web.dbConnection',
+     *          $tmpl: 'db:{user.username}::{user.password}@{key}'
+     *      }
+     * };
+     * configManager.get('dbConnection'); should return object
+     * // {
+     * //   user: {
+     * //       username: 'loginName',
+     * //       password: '12345'
+     * //   },
+     * //   key: '6ketaq3cgo315rk9'
+     * // }
+     * configManager.get('dbConectionStr'); should return string 'db:loginName::12345@6ketaq3cgo315rk9'
      */
     get: function (key) {
         'use strict';
@@ -206,12 +236,10 @@ module.exports = {
             value = getNestedValue(conf, key);
         }
         if (isObj(value)) {
-            //value = openReferences.call(this, value);
-            //value = JSON.parse(JSON.stringify(value));
             if (isExtensionObj(value)) {
                 value = applyExtension.call(this, value);
             } else {
-              //  value = openReferences.call(this, value);
+                value = openReferences.call(this, value);
                 value = JSON.parse(JSON.stringify(value));
             }
         }

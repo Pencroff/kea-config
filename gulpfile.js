@@ -9,6 +9,9 @@ var istanbul = require('gulp-istanbul');
 var clean = require('gulp-clean');
 var benchmark = require('gulp-bench');
 
+var jsdoc2md = require("gulp-jsdoc-to-markdown");
+var rename = require("gulp-rename");
+
 gulp.task('default', ['watch-mocha'], function() {
     // place code for your default task here
     console.log('gulp started');
@@ -52,4 +55,16 @@ gulp.task('benchmark', ['clear-benchmark'], function () {
             outputFormat: 'json'
         }))
         .pipe(gulp.dest('./benchmark'));
+});
+
+gulp.task("jsdocs", function() {
+    return gulp.src("./src/*.js")
+        .pipe(jsdoc2md())
+        .on("error", function(err){
+            gutil.log(gutil.colors.red("jsdoc2md failed"), err.message)
+        })
+        .pipe(rename(function(path){
+            path.extname = ".md";
+        }))
+        .pipe(gulp.dest("./documentation"));
 });
