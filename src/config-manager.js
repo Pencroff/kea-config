@@ -217,7 +217,7 @@ module.exports = {
      *           $tmpl: 'db:{user.username}::{user.password}@{key}'
      *       }
      *  };
-     *  configManager.get('dbConnection'); should return object
+     *  configManager.get('dbConnection'); //should return object
      *  // {
      *  //   user: {
      *  //       username: 'loginName',
@@ -225,7 +225,7 @@ module.exports = {
      *  //   },
      *  //   key: '6ketaq3cgo315rk9'
      *  // }
-     *  configManager.get('dbConectionStr'); should return string 'db:loginName::12345@6ketaq3cgo315rk9'
+     *  configManager.get('dbConectionStr'); //should return string 'db:loginName::12345@6ketaq3cgo315rk9'
      * ```
      */
     get: function (key) {
