@@ -200,31 +200,31 @@ module.exports = {
      * if value contain reference with template(`{ $ref: 'some.reference', $tmpl: '{some}:{template}.{string}' }`)
      * and reference point to object then return string with populated placeholder in template (look example on top of page).
      * @example <caption>Using deep references</caption>
-     * // Configuration example
-     * {
-     *      nameValue: 'loginName',
-     *      dbParams: {
-     *          username: { $ref: 'web.nameValue' },
-     *          password: '12345'
-     *      },
-     *      dbConnection: {
-     *          user: { $ref: 'web.dbParams' },
-     *          key: { $ref: 'web.sessionKey' }
-     *      },
-     *      dbConectionStr: {
-     *          $ref: 'web.dbConnection',
-     *          $tmpl: 'db:{user.username}::{user.password}@{key}'
-     *      }
-     * };
-     * configManager.get('dbConnection'); should return object
-     * // {
-     * //   user: {
-     * //       username: 'loginName',
-     * //       password: '12345'
-     * //   },
-     * //   key: '6ketaq3cgo315rk9'
-     * // }
-     * configManager.get('dbConectionStr'); should return string 'db:loginName::12345@6ketaq3cgo315rk9'
+     *      // Configuration example
+     *      {
+     *           nameValue: 'loginName',
+     *           dbParams: {
+     *               username: { $ref: 'web.nameValue' },
+     *               password: '12345'
+     *           },
+     *           dbConnection: {
+     *               user: { $ref: 'web.dbParams' },
+     *               key: { $ref: 'web.sessionKey' }
+     *           },
+     *           dbConectionStr: {
+     *               $ref: 'web.dbConnection',
+     *               $tmpl: 'db:{user.username}::{user.password}@{key}'
+     *           }
+     *      };
+     *      configManager.get('dbConnection'); should return object
+     *      // {
+     *      //   user: {
+     *      //       username: 'loginName',
+     *      //       password: '12345'
+     *      //   },
+     *      //   key: '6ketaq3cgo315rk9'
+     *      // }
+     *      configManager.get('dbConectionStr'); should return string 'db:loginName::12345@6ketaq3cgo315rk9'
      */
     get: function (key) {
         'use strict';
