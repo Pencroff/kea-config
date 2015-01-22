@@ -31,6 +31,7 @@
   "homepage": "https://github.com/Pencroff/kea-config",
   "devDependencies": {
     "chai": "~1.10.0",
+    "gitdown": "^1.2.6",
     "gulp": "~3.8.10",
     "gulp-bench": "^1.1.0",
     "gulp-clean": "^0.3.1",
