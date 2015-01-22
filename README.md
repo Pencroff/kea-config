@@ -168,6 +168,7 @@ Read (`get`) and write (`set`) config data:
 * Get key with reference and template . x 123,193 ops/sec +0.82%
 * Set simple key ...................... x 4,641,383 ops/sec +0.62%
 * Set deep key ........................ x 2,377,595 ops/sec +0.24%
+
 <h2 id="road-map">Road map</h2>
 
 * support .yml, .yaml, .coffee, .cson, .properties, .json, .json5, .hjson
@@ -180,11 +181,14 @@ Read (`get`) and write (`set`) config data:
 * [lorenwest/node-config](https://github.com/lorenwest/node-config) 
 * [flatiron/nconf](https://github.com/flatiron/nconf)
 * [dominictarr/config-chain](https://github.com/dominictarr/config-chain)
+
 <h2 id="license">License</h2>
 
 MIT
 
 Image from [thetartankiwi](http://www.thetartankiwi.com/2013/07/nz-native-bird-patterns.html)
+
+
 <h2 id="api">API</h2>
 <a name="module_kea-config"></a>
 <h1 id="kea-config">kea-config</h1>
