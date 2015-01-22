@@ -155,10 +155,10 @@ Read (`get`) and write (`set`) config data:
  
 <h2 id="code-coverage">Code coverage</h2>
 
-* Statements   : 100% ( 79/79 )
-* Branches     : 97.06% ( 33/34 )
-* Functions    : 100% ( 16/16 )
-* Lines        : 100% ( 79/79 )
+* Statements   : 100% ( 102/102 )
+* Branches     : 97.73% ( 43/44 )
+* Functions    : 100% ( 18/18 )
+* Lines        : 100% ( 102/102 )
 
 <h2 id="performance-test">Performance test</h2>
 
