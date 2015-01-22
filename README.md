@@ -175,6 +175,7 @@ Read (`get`) and write (`set`) config data:
 * adapters for different storages like (filesystem, DB, localstorage / sessionstorage, web api and etc.)
 * save current state of config
 * delete key
+
 <h2 id="inspired-by">Inspired by</h2>
 
 * ASP.NET web.config approach
