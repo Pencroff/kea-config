@@ -19,13 +19,13 @@ Read (`get`) and write (`set`) config data:
 ```js
 
     var sessionSecret = configManager.get('web.sessionKey');
-    configManager.set('web.port', 3000);
+    configManager.set('web.paging.defaultPageSize', 15);
     // also
-    webConfig = configManager.get('web');
+    webConfig = configManager.get('web.paging');
     /*
         {
-            sessionKey: '123-secret',
-            port: 3000
+            defaultPageSize: 15,
+            numberVisiblePages: 10
         }
     */
 
