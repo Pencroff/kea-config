@@ -33,7 +33,7 @@ module.exports = {
             'use strict';
             var i = configManager.get('web.dbConnection');
         },
-        'Get template with deep references': function () {
+        'Get key with deep references and template': function () {
             'use strict';
             var i = configManager.get('web.dbConectionStr');
         },
