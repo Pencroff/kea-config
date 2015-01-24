@@ -1,6 +1,6 @@
 {
   "name": "kea-config",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Configuration manager support merging configurations base on Node.js environment, references to other keys and using templates with objects for complex string values",
   "main": "index.js",
   "directories": {
