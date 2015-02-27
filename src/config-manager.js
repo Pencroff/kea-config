@@ -161,9 +161,8 @@ var confKeyStrMsg = 'Configuration key not string.',
 module.exports = {
     /**
      * Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
+     * This method looking for two files main (name started from 'main' word) and file with name started from environment (like development, staging, production)
      * @param {string} dirPath - path to folder with configuration files
-     * This method looking for two files main (name started from 'main' word)
-     * and file with name started from environment (like development, staging, production)
      */
     setup: function (dirPath) {
         'use strict';

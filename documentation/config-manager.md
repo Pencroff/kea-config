@@ -14,11 +14,11 @@ Configuration manager for Node.js applications.
 
 <a name="module_kea-config.setup"></a>
 ##kea-config.setup(dirPath)
-Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
+Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.This method looking for two files main (name started from 'main' word) and file with name started from environment (like development, staging, production)
 
 **Params**
 
-- dirPath `string` - path to folder with configuration filesThis method looking for two files main (name started from 'main' word)and file with name started from environment (like development, staging, production)  
+- dirPath `string` - path to folder with configuration files  
 
 <a name="module_kea-config.init"></a>
 ##kea-config.init(path)
