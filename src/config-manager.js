@@ -7,9 +7,10 @@
  * Configuration manager for Node.js applications.
  * @module kea-config
  */
-
+/*global require: true*/
 var confKeyStrMsg = 'Configuration key not string.',
     path = require('path'),
+    fs = require('fs'),
     conf = {},
     getFnCache = {},
     templatesCache = {},
@@ -161,15 +162,35 @@ module.exports = {
     /**
      * Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
      * @param {string} dirPath - path to folder with configuration files
+     * This method looking for two files main (name started from 'main' word)
+     * and file with name started from environment (like development, staging, production)
      */
     setup: function (dirPath) {
         'use strict';
         var me = this,
             env = process.env.NODE_ENV || 'development',
-            mainPath = path.join(dirPath, 'main.conf'),
-            envPath = path.join(dirPath, env + '.conf');
+            mainPath, envPath,
+            filesArr, len, i, fileName, mainName, envName;
+        filesArr = fs.readdirSync(dirPath);
+        len = filesArr.length;
+        for (i = 0; i < len; i += 1) {
+            fileName = filesArr[i];
+            if (fileName.indexOf('main') === 0) {
+                mainName = fileName;
+            }
+            if (fileName.indexOf(env) === 0) {
+                envName = fileName;
+            }
+            if (mainName && envName) {
+                break;
+            }
+        }
+        mainPath = path.join(dirPath, mainName);
         me.init(mainPath);
-        me.update(envPath);
+        if (envName) {
+            envPath = path.join(dirPath, envName);
+            me.update(envPath);
+        }
         return me;
     },
     /**

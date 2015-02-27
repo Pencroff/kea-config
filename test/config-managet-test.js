@@ -127,6 +127,28 @@ describe('Config Manager', function () {
         expect(configManager.get('web.paging.numberVisiblePages')).to.equals(5);
         done();
     });
+    it('should setup configuration for files without config suffixes', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles', 'without-suffix');
+        // Default NODE_ENV = development
+        process.env.NODE_ENV = 'development';
+        configManager.setup(testConfFolder);
+        expect(configManager.get('web.port')).to.equals(4343);
+        expect(configManager.get('web.paging.numberVisiblePages')).to.equals(7);
+        process.env.NODE_ENV = 'staging';
+        configManager.setup(testConfFolder);
+        expect(configManager.get('web.port')).to.equals(5757);
+        expect(configManager.get('web.paging.numberVisiblePages')).to.equals(5);
+        done();
+    });
+    it('should setup configuration just main configuration if environment not presented', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles', 'without-suffix');
+        // Default NODE_ENV = development
+        process.env.NODE_ENV = 'production';
+        configManager.setup(testConfFolder);
+        expect(configManager.get('web.port')).to.equals(8805);
+        expect(configManager.get('web.paging.numberVisiblePages')).to.equals(10);
+        done();
+    });
     it('should support initialization', function (done) {
         var testConfFolder = path.join(root, 'testConfigFiles'),
             mainConf = path.join(testConfFolder, 'main.conf.js');
