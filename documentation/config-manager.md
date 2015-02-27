@@ -18,7 +18,7 @@ Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not ava
 
 **Params**
 
-- dirPath `string` - path to folder with configuration files  
+- dirPath `string` - path to folder with configuration filesThis method looking for two files main (name started from 'main' word)and file with name started from environment (like development, staging, production)  
 
 <a name="module_kea-config.init"></a>
 ##kea-config.init(path)
