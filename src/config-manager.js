@@ -99,7 +99,6 @@ var confKeyStrMsg = 'Configuration key not string.',
             }
             templatesCache[tmpl] = matches;
         }
-
         return matches;
     },
     strTemplate = function (text, replacements) {
@@ -160,7 +159,7 @@ var confKeyStrMsg = 'Configuration key not string.',
     };
 module.exports = {
     /**
-     * Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
+     * [DEPRECATED] Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
      * This method looking for two files main (name started from 'main' word) and file with name started from environment (like development, staging, production)
      * @param {string} dirPath - path to folder with configuration files
      */
@@ -170,30 +169,32 @@ module.exports = {
             env = process.env.NODE_ENV || 'development',
             mainPath, envPath,
             filesArr, len, i, fileName, mainName, envName;
-        filesArr = fs.readdirSync(dirPath);
-        len = filesArr.length;
-        for (i = 0; i < len; i += 1) {
-            fileName = filesArr[i];
-            if (fileName.indexOf('main') === 0) {
-                mainName = fileName;
+        if (isStr(dirPath)) {
+            filesArr = fs.readdirSync(dirPath);
+            len = filesArr.length;
+            for (i = 0; i < len; i += 1) {
+                fileName = filesArr[i];
+                if (fileName.indexOf('main') === 0) {
+                    mainName = fileName;
+                }
+                if (fileName.indexOf(env) === 0) {
+                    envName = fileName;
+                }
+                if (mainName && envName) {
+                    break;
+                }
             }
-            if (fileName.indexOf(env) === 0) {
-                envName = fileName;
+            mainPath = path.join(dirPath, mainName);
+            me.init(mainPath);
+            if (envName) {
+                envPath = path.join(dirPath, envName);
+                me.update(envPath);
             }
-            if (mainName && envName) {
-                break;
-            }
-        }
-        mainPath = path.join(dirPath, mainName);
-        me.init(mainPath);
-        if (envName) {
-            envPath = path.join(dirPath, envName);
-            me.update(envPath);
         }
         return me;
     },
     /**
-     * ConfigManager initialization by data in file. Not save previous configuration.
+     * [DEPRECATED] ConfigManager initialization by data in file. Not save previous configuration.
      * @param {string} path - path to CommonJs module with configuration
      */
     init: function (path) {
@@ -203,7 +204,7 @@ module.exports = {
         return this;
     },
     /**
-     * Update exist configuration. Merge new config to exist.
+     * [DEPRECATED] Update exist configuration. Merge new config to exist.
      * @param {string} path - path to CommonJs module with configuration
      */
     update: function (path) {
