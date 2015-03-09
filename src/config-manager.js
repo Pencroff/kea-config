@@ -199,7 +199,7 @@ module.exports = {
     init: function (path) {
         'use strict';
         var config = require(path);
-        conf = JSON.parse(JSON.stringify(config));
+        this.setData(config, false);
         return this;
     },
     /**
@@ -209,8 +209,26 @@ module.exports = {
     update: function (path) {
         'use strict';
         var updateConf = require(path);
-        deepMerge(conf, updateConf);
+        this.setData(updateConf, true);
         return this;
+    },
+    /**
+     * Set / merge data in configuration manager
+     * @param {object} data - configuration data
+     * @param {boolean} isMerge - should manager merge data to exist configuration
+     */
+    setData: function (data, isMerge) {
+        if (isMerge === true) {
+            deepMerge(conf, data);
+        } else {
+            conf = JSON.parse(JSON.stringify(data || {}))
+        }
+    },
+    /**
+     * Get whole configuration as an object
+     */
+    getData: function () {
+        return JSON.parse(JSON.stringify(conf));
     },
     /**
      * Get 'value' of 'key'.

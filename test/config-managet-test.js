@@ -254,6 +254,61 @@ describe('Config Manager', function () {
         expect(configManager.get('web.dbConectionStr')).to.equal('db:loginName::12345@6ketaq3cgo315rk9');
         done();
     });
+    it('should set data for configuration manager by setData method', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js');
+        configManager.init(mainConf);
+        expect(configManager.get('web.port')).to.equals(8805);
+        expect(configManager.get('web.sessionKey')).to.equals('6ketaq3cgo315rk9');
+        configManager.setData({
+            server: {
+                port: 7575,
+                user: {
+                    login: 'user',
+                    password: '12345'
+                }
+            }
+        });
+        expect(configManager.get('web.port')).to.be.undefined();
+        expect(configManager.get('server.port')).to.equals(7575);
+        expect(configManager.get('server.user.login')).to.equals('user');
+        expect(configManager.get('server.user.password')).to.equals('12345');
+        done();
+    });
+    it('should merge data in setData method', function (done) {
+        configManager.setData({
+            server: {
+                port: 7575,
+                user: {
+                    login: 'user',
+                    password: '12345'
+                }
+            }
+        });
+        configManager.setData({
+            server: {
+                user: {
+                    login: 'new',
+                    password: 'qwerty'
+                }
+            }
+        }, true);
+        expect(configManager.getData()).to.eql({
+            server: {
+                port: 7575,
+                user: {
+                    login: 'new',
+                    password: 'qwerty'
+                }
+            }
+        });
+        done();
+    });
+    it('should set empty object', function (done) {
+        configManager.setData();
+        expect(configManager.getData()).to.eql({});
+        done();
+    });
     //it('should suppurt changes files on the fly and update config after', function (done) {
     //
     //    done();
