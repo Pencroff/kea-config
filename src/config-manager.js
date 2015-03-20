@@ -161,7 +161,7 @@ module.exports = {
     /**
      * [DEPRECATED] Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
      * This method looking for two files main (name started from 'main' word) and file with name started from environment (like development, staging, production)
-     * @param {string} dirPath - path to folder with configuration files
+     * @param {string | object} dirPath - path to folder with configuration files, object contain information about adapter and configuration for it
      */
     setup: function (dirPath) {
         'use strict';
@@ -191,6 +191,7 @@ module.exports = {
                 me.update(envPath);
             }
         }
+
         return me;
     },
     /**
