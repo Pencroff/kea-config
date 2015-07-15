@@ -1,5 +1,7 @@
 ![Kea-logo](./img/kea-logo.png) 
 
+{"gitdown": "badge", "name": "npm-version"}
+
 kea-config
 ==========
 

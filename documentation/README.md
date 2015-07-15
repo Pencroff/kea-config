@@ -1,7 +1,5 @@
 {"gitdown": "include", "file": "./documentation/title.md"}
 
-{"gitdown": "badge", "name": "npm-version"}
-
 ## Contents
 
 {"gitdown": "contents", "maxDepth": 3}

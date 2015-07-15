@@ -1,5 +1,7 @@
 ![Kea-logo](./img/kea-logo.png) 
 
+[![NPM version](http://img.shields.io/npm/v/kea-config.svg?style=flat)](https://www.npmjs.org/package/kea-config)
+
 kea-config
 ==========
 
@@ -8,12 +10,10 @@ Main feature of this configuration manager is merging configuration files depend
 support references to other keys and using templates with objects for complex string values.
 
 <h4 id="video">Video</h4>
-[![Kea Config: Configuration Manager for node.js](http://img.youtube.com/vi/P6nTr5T8GVI/0.jpg)](https://www.youtube.com/watch?v=P6nTr5T8GVI)
+[![Kea Config: Configuration Manager for node.js](./img/kea-config-first-video-slide.jpg)](https://www.youtube.com/watch?v=P6nTr5T8GVI)
 <h4 id="slides">Slides</h4>
 [![Kea Config: Configuration Manager for node.js](./img/kea-config-presentation-title-slide.png)](http://slides.com/sergiidaniloff/deck/fullscreen)
 
-
-[![NPM version](http://img.shields.io/npm/v/kea-config.svg?style=flat)](https://www.npmjs.org/package/kea-config)
 
 <h2 id="contents">Contents</h2>
 
