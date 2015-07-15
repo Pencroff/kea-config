@@ -159,7 +159,7 @@ var confKeyStrMsg = 'Configuration key not string.',
     };
 module.exports = {
     /**
-     * [DEPRECATED] Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
+     * Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
      * This method looking for two files main (name started from 'main' word) and file with name started from environment (like development, staging, production)
      * @param {string | object} dirPath - path to folder with configuration files, object contain information about adapter and configuration for it
      */
@@ -195,7 +195,7 @@ module.exports = {
         return me;
     },
     /**
-     * [DEPRECATED] ConfigManager initialization by data in file. Not save previous configuration.
+     * ConfigManager initialization by data in file. Not save previous configuration.
      * @param {string} path - path to CommonJs module with configuration
      */
     init: function (path) {
@@ -205,7 +205,7 @@ module.exports = {
         return this;
     },
     /**
-     * [DEPRECATED] Update exist configuration. Merge new config to exist.
+     * Update exist configuration. Merge new config to exist.
      * @param {string} path - path to CommonJs module with configuration
      */
     update: function (path) {

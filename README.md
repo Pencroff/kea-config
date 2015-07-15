@@ -1,7 +1,3 @@
-<!--
-This file has been generated using Gitdown (https://github.com/gajus/gitdown).
-Direct edits to this will be be overwritten. Look for Gitdown markup file under ./.gitdown/ path.
--->
 ![Kea-logo](./img/kea-logo.png) 
 
 kea-config
@@ -10,6 +6,12 @@ kea-config
 Configuration manager for Node.js applications with perfect performance and without dependencies.
 Main feature of this configuration manager is merging configuration files depending on Node.js environment,
 support references to other keys and using templates with objects for complex string values.
+
+<h4 id="video">Video</h4>
+[![Kea Config: Configuration Manager for node.js](http://img.youtube.com/vi/P6nTr5T8GVI/0.jpg)](https://www.youtube.com/watch?v=P6nTr5T8GVI)
+<h4 id="slides">Slides</h4>
+[![Kea Config: Configuration Manager for node.js](./img/kea-config-presentation-title-slide.png)](http://slides.com/sergiidaniloff/deck/fullscreen)
+
 
 [![NPM version](http://img.shields.io/npm/v/kea-config.svg?style=flat)](https://www.npmjs.org/package/kea-config)
 
@@ -29,9 +31,11 @@ support references to other keys and using templates with objects for complex st
     * [kea-config.setup(dirPath)](#kea-config-kea-config-setup-dirpath-)
     * [kea-config.init(path)](#kea-config-kea-config-init-path-)
     * [kea-config.update(path)](#kea-config-kea-config-update-path-)
-    * [kea-config.get(key)](#kea-config-kea-config-get-key-)
+    * [kea-config.setData(data, isMerge)](#kea-config-kea-config-setdata-data-ismerge-)
+    * [kea-config.getData()](#kea-config-kea-config-getdata-)
+    * [kea-config.get(key) ⇒ <code>\*</code>](#kea-config-kea-config-get-key-code-code-)
     * [kea-config.set(key, value)](#kea-config-kea-config-set-key-value-)
-    * [kea-config.has(key)](#kea-config-kea-config-has-key-)
+    * [kea-config.has(key) ⇒ <code>boolean</code>](#kea-config-kea-config-has-key-code-boolean-code-)
 
 
 <h2 id="quick-example">Quick example</h2>
@@ -197,70 +201,97 @@ Image from [thetartankiwi](http://www.thetartankiwi.com/2013/07/nz-native-bird-p
 
 <h2 id="api">API</h2>
 <a name="module_kea-config"></a>
-<h1 id="kea-config">kea-config</h1>
+<h2 id="kea-config">kea-config</h2>
 Configuration manager for Node.js applications.
 
-**Members**
 
 * [kea-config](#module_kea-config)
-  * [kea-config.setup(dirPath)](#module_kea-config.setup)
-  * [kea-config.init(path)](#module_kea-config.init)
-  * [kea-config.update(path)](#module_kea-config.update)
-  * [kea-config.get(key)](#module_kea-config.get)
-  * [kea-config.set(key, value)](#module_kea-config.set)
-  * [kea-config.has(key)](#module_kea-config.has)
+  * [.setup(dirPath)](#module_kea-config.setup)
+  * [.init(path)](#module_kea-config.init)
+  * [.update(path)](#module_kea-config.update)
+  * [.setData(data, isMerge)](#module_kea-config.setData)
+  * [.getData()](#module_kea-config.getData)
+  * [.get(key)](#module_kea-config.get) ⇒ <code>\*</code>
+  * [.set(key, value)](#module_kea-config.set)
+  * [.has(key)](#module_kea-config.has) ⇒ <code>boolean</code>
 
 <a name="module_kea-config.setup"></a>
-<h2 id="kea-config-kea-config-setup-dirpath-">kea-config.setup(dirPath)</h2>
+<h3 id="kea-config-kea-config-setup-dirpath-">kea-config.setup(dirPath)</h3>
 Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.This method looking for two files main (name started from 'main' word) and file with name started from environment (like development, staging, production)
 
-**Params**
+**Kind**: static method of <code>[kea-config](#module_kea-config)</code>  
 
-- dirPath `string` - path to folder with configuration files  
+| Param | Type | Description |
+| --- | --- | --- |
+| dirPath | <code>string</code> &#124; <code>object</code> | path to folder with configuration files, object contain information about adapter and configuration for it |
 
 <a name="module_kea-config.init"></a>
-<h2 id="kea-config-kea-config-init-path-">kea-config.init(path)</h2>
+<h3 id="kea-config-kea-config-init-path-">kea-config.init(path)</h3>
 ConfigManager initialization by data in file. Not save previous configuration.
 
-**Params**
+**Kind**: static method of <code>[kea-config](#module_kea-config)</code>  
 
-- path `string` - path to CommonJs module with configuration  
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | path to CommonJs module with configuration |
 
 <a name="module_kea-config.update"></a>
-<h2 id="kea-config-kea-config-update-path-">kea-config.update(path)</h2>
+<h3 id="kea-config-kea-config-update-path-">kea-config.update(path)</h3>
 Update exist configuration. Merge new config to exist.
 
-**Params**
+**Kind**: static method of <code>[kea-config](#module_kea-config)</code>  
 
-- path `string` - path to CommonJs module with configuration  
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | path to CommonJs module with configuration |
 
+<a name="module_kea-config.setData"></a>
+<h3 id="kea-config-kea-config-setdata-data-ismerge-">kea-config.setData(data, isMerge)</h3>
+Set / merge data in configuration manager
+
+**Kind**: static method of <code>[kea-config](#module_kea-config)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>object</code> | configuration data |
+| isMerge | <code>boolean</code> | should manager merge data to exist configuration |
+
+<a name="module_kea-config.getData"></a>
+<h3 id="kea-config-kea-config-getdata-">kea-config.getData()</h3>
+Get whole configuration as an object
+
+**Kind**: static method of <code>[kea-config](#module_kea-config)</code>  
 <a name="module_kea-config.get"></a>
-<h2 id="kea-config-kea-config-get-key-">kea-config.get(key)</h2>
+<h3 id="kea-config-kea-config-get-key-code-code-">kea-config.get(key) ⇒ <code>\*</code></h3>
 Get 'value' of 'key'.
 
-**Params**
+**Kind**: static method of <code>[kea-config](#module_kea-config)</code>  
+**Returns**: <code>\*</code> - value - `value` of `key`. Can be `primitive` or `javascript object`. Objects not connected to original configuration.If value contain reference (`{$ref: 'some.reference.to.other.key'}`), then return reference value,if value contain reference with template(`{ $ref: 'some.reference', $tmpl: '{some}:{template}.{string}' }`)and reference point to object then return string with populated placeholder in template (look example on top of page).  
 
-- key `string` - key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js  
+| Param | Type | Description |
+| --- | --- | --- |
+| key | <code>string</code> | key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js |
 
-**Returns**: `*` - value - `value` of `key`. Can be `primitive` or `javascript object`. Objects not connected to original configuration.If value contain reference (`{$ref: 'some.reference.to.other.key'}`), then return reference value,if value contain reference with template(`{ $ref: 'some.reference', $tmpl: '{some}:{template}.{string}' }`)and reference point to object then return string with populated placeholder in template (look example on top of page).  
 **Example**  
-<caption>Using deep references</caption>```js// Configuration example{     nameValue: 'loginName',     dbParams: {         username: { $ref: 'web.nameValue' },         password: '12345'     },     dbConnection: {         user: { $ref: 'web.dbParams' },         key: { $ref: 'web.sessionKey' }     },     dbConectionStr: {         $ref: 'web.dbConnection',         $tmpl: 'db:{user.username}::{user.password}@{key}'     }};configManager.get('dbConnection'); //should return object// {//   user: {//       username: 'loginName',//       password: '12345'//   },//   key: '6ketaq3cgo315rk9'// }configManager.get('dbConectionStr'); //should return string 'db:loginName::12345@6ketaq3cgo315rk9'```
-
+<caption>Using deep references</caption>```js // Configuration example {      nameValue: 'loginName',      dbParams: {          username: { $ref: 'web.nameValue' },          password: '12345'      },      dbConnection: {          user: { $ref: 'web.dbParams' },          key: { $ref: 'web.sessionKey' }      },      dbConectionStr: {          $ref: 'web.dbConnection',          $tmpl: 'db:{user.username}::{user.password}@{key}'      } }; configManager.get('dbConnection'); //should return object // { //   user: { //       username: 'loginName', //       password: '12345' //   }, //   key: '6ketaq3cgo315rk9' // } configManager.get('dbConectionStr'); //should return string 'db:loginName::12345@6ketaq3cgo315rk9'```
 <a name="module_kea-config.set"></a>
-<h2 id="kea-config-kea-config-set-key-value-">kea-config.set(key, value)</h2>
+<h3 id="kea-config-kea-config-set-key-value-">kea-config.set(key, value)</h3>
 Set 'value' for 'key'
 
-**Params**
+**Kind**: static method of <code>[kea-config](#module_kea-config)</code>  
 
-- key `string` - key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js  
-- value `*`  
+| Param | Type | Description |
+| --- | --- | --- |
+| key | <code>string</code> | key in configuration. Like 'simpleKey' or 'section.subsection.complex.key'. See config-managet-test.js |
+| value | <code>\*</code> |  |
 
 <a name="module_kea-config.has"></a>
-<h2 id="kea-config-kea-config-has-key-">kea-config.has(key)</h2>
+<h3 id="kea-config-kea-config-has-key-code-boolean-code-">kea-config.has(key) ⇒ <code>boolean</code></h3>
 Check availability of key in configuration
 
-**Params**
+**Kind**: static method of <code>[kea-config](#module_kea-config)</code>  
 
-- key   
+| Param |
+| --- |
+| key | 
 
-**Returns**: `boolean`  
