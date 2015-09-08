@@ -60,7 +60,7 @@ describe('Config Manager', function () {
         expect(configManager.get('web').port).to.equals(4455);
         expect(configManager.get('web.port')).to.equals(4455);
         expect(configManager.get('web.sessionKey')).to.equals('6ketaq3cgo315rk9');
-        expect(configManager.get('web.paging')).to.not.undefined();
+        expect(configManager.get('web.paging')).to.not.undefined;
         expect(configManager.get('web.paging.defaultPageSize')).to.equals(25);
         expect(configManager.get('web.paging.numberVisiblePages')).to.equals(10);
         configManager.set('web.section.keyA', 'AAA');
@@ -127,6 +127,17 @@ describe('Config Manager', function () {
         expect(configManager.get('web.paging.numberVisiblePages')).to.equals(5);
         done();
     });
+    it('should support relative path to config folder for setup', function (done) {
+        process.env.NODE_ENV = 'development';
+        configManager.setup('./test/testConfigFiles');
+        expect(configManager.get('web.port')).to.equals(4343);
+        expect(configManager.get('web.paging.numberVisiblePages')).to.equals(7);
+        process.env.NODE_ENV = 'staging';
+        configManager.setup('./test/testConfigFiles');
+        expect(configManager.get('web.port')).to.equals(5757);
+        expect(configManager.get('web.paging.numberVisiblePages')).to.equals(5);
+        done();
+    });
     it('should setup configuration for files without config suffixes', function (done) {
         var testConfFolder = path.join(root, 'testConfigFiles', 'without-suffix');
         // Default NODE_ENV = development
@@ -158,12 +169,26 @@ describe('Config Manager', function () {
         expect(configManager.get('web').sessionKey).to.equals('6ketaq3cgo315rk9');
         done();
     });
+    it('should support relative path for init', function (done) {
+        configManager.init('./test/testConfigFiles/main.conf.js');
+        expect(configManager.get('web')).to.not.undefined;
+        expect(configManager.get('web').port).to.equals(8805);
+        expect(configManager.get('web').sessionKey).to.equals('6ketaq3cgo315rk9');
+        done();
+    });
     it('should update configuration', function (done) {
         var testConfFolder = path.join(root, 'testConfigFiles'),
             mainConf = path.join(testConfFolder, 'main.conf.js'),
             stagingConf = path.join(testConfFolder, 'staging.conf.js');
         configManager.init(mainConf);
         configManager.update(stagingConf);
+        expect(configManager.get('web.port')).to.equals(5757);
+        expect(configManager.get('web.paging.numberVisiblePages')).to.equals(5);
+        done();
+    });
+    it('should support relative path for update', function (done) {
+        configManager.init('./test/testConfigFiles/main.conf.js');
+        configManager.update('./test/testConfigFiles/staging.conf.js');
         expect(configManager.get('web.port')).to.equals(5757);
         expect(configManager.get('web.paging.numberVisiblePages')).to.equals(5);
         done();
@@ -269,7 +294,7 @@ describe('Config Manager', function () {
                 }
             }
         });
-        expect(configManager.get('web.port')).to.be.undefined();
+        expect(configManager.get('web.port')).to.be.undefined;
         expect(configManager.get('server.port')).to.equals(7575);
         expect(configManager.get('server.user.login')).to.equals('user');
         expect(configManager.get('server.user.password')).to.equals('12345');

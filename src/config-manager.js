@@ -161,15 +161,16 @@ module.exports = {
     /**
      * Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not available use `development` as default.
      * This method looking for two files main (name started from 'main' word) and file with name started from environment (like development, staging, production)
-     * @param {string | object} dirPath - path to folder with configuration files, object contain information about adapter and configuration for it
+     * @param {string | object} dirPath - path to folder with configuration files, from project root
      */
     setup: function (dirPath) {
         'use strict';
         var me = this,
             env = process.env.NODE_ENV || 'development',
-            mainPath, envPath,
+            mainPath, envPath, realPath,
             filesArr, len, i, fileName, mainName, envName;
         if (isStr(dirPath)) {
+            dirPath = fs.realpathSync(dirPath);
             filesArr = fs.readdirSync(dirPath);
             len = filesArr.length;
             for (i = 0; i < len; i += 1) {
@@ -196,20 +197,22 @@ module.exports = {
     },
     /**
      * ConfigManager initialization by data in file. Not save previous configuration.
-     * @param {string} path - path to CommonJs module with configuration
+     * @param {string} path - path to CommonJs module with configuration, from project root
      */
     init: function (path) {
         'use strict';
+        path = fs.realpathSync(path);
         var config = require(path);
         this.setData(config, false);
         return this;
     },
     /**
      * Update exist configuration. Merge new config to exist.
-     * @param {string} path - path to CommonJs module with configuration
+     * @param {string} path - path to CommonJs module with configuration, from project root
      */
     update: function (path) {
         'use strict';
+        path = fs.realpathSync(path);
         var updateConf = require(path);
         this.setData(updateConf, true);
         return this;

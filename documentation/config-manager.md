@@ -21,7 +21,7 @@ Full init config based on environment variable `NODE_ENV`. If `NODE_ENV` not ava
 
 | Param | Type | Description |
 | --- | --- | --- |
-| dirPath | <code>string</code> &#124; <code>object</code> | path to folder with configuration files, object contain information about adapter and configuration for it |
+| dirPath | <code>string</code> &#124; <code>object</code> | path to folder with configuration files, from project root |
 
 <a name="module_kea-config.init"></a>
 ### kea-config.init(path)
@@ -31,7 +31,7 @@ ConfigManager initialization by data in file. Not save previous configuration.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| path | <code>string</code> | path to CommonJs module with configuration |
+| path | <code>string</code> | path to CommonJs module with configuration, from project root |
 
 <a name="module_kea-config.update"></a>
 ### kea-config.update(path)
@@ -41,7 +41,7 @@ Update exist configuration. Merge new config to exist.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| path | <code>string</code> | path to CommonJs module with configuration |
+| path | <code>string</code> | path to CommonJs module with configuration, from project root |
 
 <a name="module_kea-config.setData"></a>
 ### kea-config.setData(data, isMerge)
