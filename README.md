@@ -27,7 +27,7 @@ support references to other keys and using templates with objects for complex st
 * [Inspired by](#inspired-by)
 * [License](#license)
 * [API](#api)
-* [kea-config](#kea-config)
+* [kea-config](#module_kea-config-docs)
     * [kea-config.setup(dirPath)](#kea-config-kea-config-setup-dirpath-)
     * [kea-config.init(path)](#kea-config-kea-config-init-path-)
     * [kea-config.update(path)](#kea-config-kea-config-update-path-)
@@ -200,7 +200,7 @@ Image from [thetartankiwi](http://www.thetartankiwi.com/2013/07/nz-native-bird-p
 
 
 <h2 id="api">API</h2>
-<a name="module_kea-config"></a>
+<a name="module_kea-config-docs"></a>
 <h2 id="kea-config">kea-config</h2>
 Configuration manager for Node.js applications.
 
