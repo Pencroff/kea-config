@@ -70,6 +70,36 @@ describe('Config Manager', function () {
         expect(section.keyB).to.equals('BBB');
         done();
     });
+    it('should GET complex value', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js'),
+            section;
+        configManager.init(mainConf);
+        section = configManager.get('web.paging');
+        expect(section).to.not.an('undefined');
+        expect(section.defaultPageSize).to.equals(25);
+        expect(section.numberVisiblePages).to.equals(10);
+        done();
+    });
+    it('should SET complex value', function (done) {
+        var testConfFolder = path.join(root, 'testConfigFiles'),
+            mainConf = path.join(testConfFolder, 'main.conf.js'),
+            newSectionValue = {
+                defaultPageSize: 35,
+                numberVisiblePages: 5,
+                ordyrBy: {
+                    type: 'name',
+                    direction: 'DESC'
+                }
+            },
+            section;
+        configManager.init(mainConf);
+        configManager.set('web.paging', newSectionValue);
+        section = configManager.get('web.paging');
+        expect(section).to.not.an('undefined');
+        expect(section).to.eql(newSectionValue);
+        done();
+    });
     it('should not override value', function (done) {
         var testConfFolder = path.join(root, 'testConfigFiles'),
             mainConf = path.join(testConfFolder, 'main.conf.js');
@@ -334,8 +364,4 @@ describe('Config Manager', function () {
         expect(configManager.getData()).to.eql({});
         done();
     });
-    //it('should suppurt changes files on the fly and update config after', function (done) {
-    //
-    //    done();
-    //});
 });
